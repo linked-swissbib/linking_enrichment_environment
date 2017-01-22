@@ -1,6 +1,7 @@
 reshaper-tool
 data/swissbib/utilities
 data/swissbib/contexts
+data/swissbib/combi_table.csv
 data/viaf/raw/*.nt
 data/viaf/raw/*.nt.gz
 linking/cache
