@@ -1,0 +1,6 @@
+http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+http://xmlns.com/foaf/0.1/firstName
+http://xmlns.com/foaf/0.1/lastName
+http://dbpedia.org/ontology/birthYear
+http://dbpedia.org/ontology/deathYear
+http://www.w3.org/2002/07/owl#sameAs

@@ -1,0 +1,7 @@
+http://schema.org/givenName
+http://schema.org/alternateName
+http://schema.org/birthDate
+http://schema.org/deathDate
+http://schema.org/familyName
+http://schema.org/gender
+http://schema.org/sameAs

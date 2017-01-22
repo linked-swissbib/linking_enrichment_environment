@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE LIMES SYSTEM "limes.dtd">
+<LIMES>
+   <PREFIX>
+      <NAMESPACE>http://www.w3.org/1999/02/22-rdf-syntax-ns#</NAMESPACE>
+      <LABEL>rdf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://xmlns.com/foaf/0.1/</NAMESPACE>
+      <LABEL>foaf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://dbpedia.org/ontology/</NAMESPACE>
+      <LABEL>dbp</LABEL>
+   </PREFIX>
+   <SOURCE>
+      <ID>SOURCEID</ID>
+      <ENDPOINT>SOURCEFILE</ENDPOINT>
+      <GRAPH>http://linked.swissbib.ch/swissbib</GRAPH>
+      <VAR>?a</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?a rdf:type foaf:Person</RESTRICTION>
+      <PROPERTY>foaf:firstName AS nolang -> lowercase</PROPERTY>
+      <PROPERTY>foaf:lastName AS nolang -> lowercase</PROPERTY>
+      <PROPERTY>dbp:birthYear AS number</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </SOURCE>
+   <TARGET>
+      <ID>TARGETID</ID>
+      <ENDPOINT>TARGETFILE</ENDPOINT>
+      <GRAPH>http://linked.swissbib.ch/dbpedia</GRAPH>
+      <VAR>?b</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?b rdf:type foaf:Person</RESTRICTION>
+      <PROPERTY>foaf:givenName AS nolang -> lowercase</PROPERTY>
+      <PROPERTY>foaf:familyName AS nolang -> lowercase</PROPERTY>
+      <PROPERTY>dbp:birthDate AS number RENAME birth</PROPERTY>
+      <PROPERTY>dbp:birthYear AS number RENAME birth</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </TARGET>
+   <METRIC>AND(AND(levenshtein(a.foaf:firstName, b.foaf:givenName) |1.0 , levenshtein(a.foaf:lastName, b.foaf:familyName) |1.0)|1.0 , levenshtein(a.dbp:birthYear, b.birth)|1.0)</METRIC>
+   <ACCEPTANCE>
+      <THRESHOLD>0.8</THRESHOLD>
+      <FILE>ACCEPTFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </ACCEPTANCE>
+   <REVIEW>
+      <THRESHOLD>0.7</THRESHOLD>
+      <FILE>REVIEWFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </REVIEW>
+   <EXECUTION>NToN</EXECUTION>
+   <OUTPUT>N3</OUTPUT>
+</LIMES>

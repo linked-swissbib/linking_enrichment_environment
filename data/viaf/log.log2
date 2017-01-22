@@ -1,0 +1,19 @@
+Using settings for productive environment
+Viaf data is present in one large N-Triples file, so no import necessary.
+Filtering unwanted statements.
+Filtering unwanted statements ok.
+Sort
+Sorting ok.
+Remove duplicate statements
+Removing duplicate statements ok.
+Extract Persons
+Extract persons ok.
+Filter persons 4 linking
+Filtering persons 4 linking ok.
+Filter persons 4 enriching
+Filtering of persons 4 enrichment ok.
+Block persons by family name
+Blocking persons by family name ok.
+Block persons by gnd identifier
+Blocking persons by gnd identifier ok.
+done

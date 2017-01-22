@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE LIMES SYSTEM "limes.dtd">
+<LIMES>
+   <PREFIX>
+      <NAMESPACE>http://www.w3.org/1999/02/22-rdf-syntax-ns#</NAMESPACE>
+      <LABEL>rdf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://xmlns.com/foaf/0.1/</NAMESPACE>
+      <LABEL>foaf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://schema.org/</NAMESPACE>
+      <LABEL>sch</LABEL>
+   </PREFIX>
+   <SOURCE>
+      <ID>SOURCEID</ID>
+      <ENDPOINT>SOURCEFILE</ENDPOINT>
+      <GRAPH>http://linked.swissbib.ch/swissbib</GRAPH>
+      <VAR>?a</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?a rdf:type foaf:Person</RESTRICTION>
+      <PROPERTY>foaf:firstName AS nolang -> lowercase</PROPERTY>
+      <PROPERTY>foaf:lastName AS nolang -> lowercase</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </SOURCE>
+   <TARGET>
+      <ID>TARGETID</ID>
+      <ENDPOINT>TARGETFILE</ENDPOINT>
+      <GRAPH>http://linked.swissbib.ch/viaf</GRAPH>
+      <VAR>?b</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?b rdf:type sch:Person</RESTRICTION>
+      <PROPERTY>sch:givenName AS nolang -> lowercase</PROPERTY>
+      <PROPERTY>sch:familyName AS nolang -> lowercase</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </TARGET>
+   <METRIC>AND(levenshtein(a.foaf:firstName, b.sch:givenName) |1.0 , levenshtein(a.foaf:lastName, b.sch:familyName) |1.0)</METRIC>
+   <ACCEPTANCE>
+      <THRESHOLD>0.8</THRESHOLD>
+      <FILE>ACCEPTFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </ACCEPTANCE>
+   <REVIEW>
+      <THRESHOLD>0.7</THRESHOLD>
+      <FILE>REVIEWFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </REVIEW>
+   <EXECUTION>NToN</EXECUTION>
+   <OUTPUT>N3</OUTPUT>
+</LIMES>

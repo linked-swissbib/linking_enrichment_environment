@@ -1,0 +1,6 @@
+http://dbpedia.org/ontology/creator
+http://dbpedia.org/ontology/author
+http://dbpedia.org/ontology/created
+http://dbpedia.org/ontology/artist
+http://dbpedia.org/ontology/composer
+http://dbpedia.org/ontology/developer

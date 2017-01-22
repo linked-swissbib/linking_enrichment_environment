@@ -1,0 +1,7 @@
+http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+http://xmlns.com/foaf/0.1/givenName
+http://xmlns.com/foaf/0.1/familyName
+http://dbpedia.org/ontology/birthDate
+http://dbpedia.org/ontology/birthYear
+http://dbpedia.org/ontology/deathDate
+http://dbpedia.org/ontology/deathYear

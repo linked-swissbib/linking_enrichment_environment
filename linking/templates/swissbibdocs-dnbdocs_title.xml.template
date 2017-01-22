@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE LIMES SYSTEM "limes.dtd">
+<LIMES>
+   <PREFIX>
+      <NAMESPACE>http://www.w3.org/1999/02/22-rdf-syntax-ns#</NAMESPACE>
+      <LABEL>rdf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://xmlns.com/foaf/0.1/</NAMESPACE>
+      <LABEL>foaf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://d-nb.info/standards/elementset/gnd#</NAMESPACE>
+      <LABEL>gnd</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://dbpedia.org/ontology/</NAMESPACE>
+      <LABEL>dbp</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://purl.org/dc/elements/1.1/</NAMESPACE>
+      <LABEL>dc</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://purl.org/dc/terms/</NAMESPACE>
+      <LABEL>dct</LABEL>
+   </PREFIX>
+   <SOURCE>
+      <ID>SOURCEID</ID>
+      <ENDPOINT>SOURCEFILE</ENDPOINT>
+      <GRAPH>http://linked.swissbib.ch/swissbib</GRAPH>
+      <VAR>?a</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?a rdf:type dct:BibliographicResource</RESTRICTION>
+      <PROPERTY>dct:title AS nolang -> lowercase</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </SOURCE>
+   <TARGET>
+      <ID>TARGETID</ID>
+      <ENDPOINT>TARGETFILE</ENDPOINT>
+      <GRAPH>http://linked.swissbib.ch/dnb</GRAPH>
+      <VAR>?b</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION></RESTRICTION>
+      <PROPERTY>dc:title AS nolang -> lowercase</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </TARGET>
+   <METRIC>levenshtein(a.dct:title, b.dc:title)</METRIC> <!-- ACHTUNG dc vs. dct -->
+   <ACCEPTANCE>
+      <THRESHOLD>0.8</THRESHOLD>
+      <FILE>ACCEPTFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </ACCEPTANCE>
+   <REVIEW>
+      <THRESHOLD>0.7</THRESHOLD>
+      <FILE>REVIEWFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </REVIEW>
+   <EXECUTION>NToN</EXECUTION>
+   <OUTPUT>N3</OUTPUT>
+</LIMES>

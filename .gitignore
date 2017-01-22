@@ -1,0 +1,8 @@
+reshaper-tool
+data/swissbib/utilities
+data/swissbib/contexts
+data/viaf/raw/*.nt
+data/viaf/raw/*.nt.gz
+linking/cache
+limes-tool
+genconfig-tool
