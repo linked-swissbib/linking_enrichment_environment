@@ -2,6 +2,11 @@ reshaper-tool
 data/swissbib/utilities
 data/swissbib/contexts
 data/swissbib/combi_table.csv
+data/dbpedia/raw/*.ttl
+data/dbpedia/raw/*.log
+*.tar.gz
+*.log
+*.nt
 data/viaf/raw/*.nt
 data/viaf/raw/*.nt.gz
 linking/cache

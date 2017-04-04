@@ -11,103 +11,118 @@ date >> times.log
 #Download canonical data ###########################################################################
 ####################################################################################################
 
-#Mapping based types - de
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/instance-types-en-uris_de.nt.bz2
-#Maping based properties - de
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/mappingbased-properties-en-uris_de.nt.bz2
-#Persondata - de
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/persondata-en-uris_de.nt.bz2
+### DE ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/instance_types_en_uris_de.ttl.bz2
+#Mapping based properties: literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/mappingbased_literals_en_uris_de.ttl.bz2
+#Mapping based properties: objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/mappingbased_objects_en_uris_de.ttl.bz2
+#Persondata
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/persondata_en_uris_de.ttl.bz2
 #Extended abstracts
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/long-abstracts-en-uris_de.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/long_abstracts_en_uris_de.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/images-en-uris_de.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/images_en_uris_de.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/labels-en-uris_de.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/labels_en_uris_de.ttl.bz2
 
 
-
-#Mapping based types - en
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/instance-types_en.nt.bz2
-#Mapping based properties - en
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/mappingbased-properties_en.nt.bz2
-#Person data - en
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/persondata_en.nt.bz2
+### EN ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/instance_types_en.ttl.bz2
+#Mapping based literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/mappingbased_literals_en.ttl.bz2
+#Mapping based objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/mappingbased_objects_en.ttl.bz2
+#Person data
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/persondata_en.ttl.bz2
 #Extended abstracts
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/long-abstracts_en.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/long_abstracts_en.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/images_en.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/images_en.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/labels_en.nt.bz2
-
-wait
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/en/labels_en.ttl.bz2
 
 
-#Maapping based types - fr 
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/instance-types-en-uris_fr.nt.bz2
-#Mapping based properties - fr
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/mappingbased-properties-en-uris_fr.nt.bz2
+### FR ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/instance_types_en_uris_fr.ttl.bz2
+#Mapping based literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/mappingbased_literals_en_uris_fr.ttl.bz2
+#Mapping based objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/mappingbased_objects_en_uris_fr.ttl.bz2
 #Extended abstracts
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/long-abstracts-en-uris_fr.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/long_abstracts_en_uris_fr.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/images-en-uris_fr.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/images_en_uris_fr.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/labels-en-uris_fr.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/labels_en_uris_fr.ttl.bz2
 
 
-
-#Mapping based types - it
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/instance-types-en-uris_it.nt.bz2
-#Mapping based properties - it
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/mappingbased-properties-en-uris_it.nt.bz2
+### IT ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/instance_types_en_uris_it.ttl.bz2
+#Mapping based literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/mappingbased_literals_en_uris_it.ttl.bz2
+#Mapping based objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/mappingbased_objects_en_uris_it.ttl.bz2
 #Extended abstract
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/long-abstracts-en-uris_it.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/long_abstracts_en_uris_it.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/images-en-uris_it.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/images_en_uris_it.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/labels-en-uris_it.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/labels_en_uris_it.ttl.bz2
 
-wait
+
 
 
 #Download localized data ############################################################################
 ######################################################################################################
 
-#Mapping based types - de
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/instance-types_de.nt.bz2
-#Maping based properties - de
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/mappingbased-properties_de.nt.bz2
+### DE ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/instance_types_de.ttl.bz2
+#Maping based literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/mappingbased_literals_de.ttl.bz2
+#Mapping based objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/mappingbased_objects_de.ttl.bz2
 #Extended abstracts
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/long-abstracts_de.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/long_abstracts_de.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/images_de.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/images_de.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/labels_de.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/de/labels_de.ttl.bz2
 
 
-#Maapping based types - fr 
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/instance-types_fr.nt.bz2
-#Mapping based properties - fr
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/mappingbased-properties_fr.nt.bz2
+### FR ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/instance_types_fr.ttl.bz2
+#Mapping based literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/mappingbased_literals_fr.ttl.bz2
+#Mapping based objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/mappingbased_objects_fr.ttl.bz2
 #Extended abstracts
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/long-abstracts_fr.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/long_abstracts_fr.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/images_fr.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/images_fr.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/labels_fr.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/fr/labels_fr.ttl.bz2
 
-wait
 
-#Mapping based types - it
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/instance-types_it.nt.bz2
-#Mapping based properties - it
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/mappingbased-properties_it.nt.bz2
+### IT ###
+#Mapping based types
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/instance_types_it.ttl.bz2
+#Mapping based literals
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/mappingbased_literals_it.ttl.bz2
+#Mapping based objects
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/mappingbased_objects_it.ttl.bz2
 #Extended abstracts
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/long-abstracts_it.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/long_abstracts_it.ttl.bz2
 #Images
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/images_it.nt.bz2
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/images_it.ttl.bz2
 #Labels
-wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/labels_it.nt.bz2
-
+wget -nv http://downloads.dbpedia.org/2016-04/core-i18n/it/labels_it.ttl.bz2
 
 wait
 
@@ -116,12 +131,11 @@ echo -n "Download complete: " >> times.log
 date >> times.log
 
 
-
 echo Unzipping...
 
 
 #unzip files
-bzip2 -k -d *.nt.bz2
+bzip2 -k -d *.ttl.bz2
 
 wait
 
