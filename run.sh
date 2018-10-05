@@ -4,23 +4,25 @@
 
 # Executes the linking workflow
 
-cwd=`pwd`
+CURRENT_WORKING_DIRECTORY=$(pwd)
 
+
+rm "$LINKED_LOGGING/*.log"
+rm "$LINKED_TMP_DATA_FOLDER/*.nt"
 
 # Log start time
 echo -n "Start: " >> times.log
 date >> times.log
 
-
-# Preprocess swissbib
-cd $cwd/data/swissbib
+# Preprocess prepare_swissbib_data
+cd "$CURRENT_WORKING_DIRECTORY/prepare_swissbib_data"
 ./preprocess_swissbib.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ "$STATUS" -eq 0 ]; then
   echo Preprocessing Swissbib ok.
 else
   echo Error during preprocessing of Swissbib. Exiting. 1>&2
-  exit $status
+  exit "$STATUS"
 fi
 
 
@@ -28,36 +30,36 @@ fi
 
 
 # Link with DBpedia
-cd $cwd/linking
+cd $CURRENT_WORKING_DIRECTORY/linking
 ./generate_configs4dbpedia.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo Generating configuration files for interlinking whith DBpedia ok.
 else
   echo Error during generation of configuration file for interlinking with DBpedia. Exiting. 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 ./do_parallel_linking.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo Parallel interlinking with DBpedia ok.
 else
   echo Error during parallel interlinking with DBpedia. Exiting. 1>&2
-  exit $status
+  exit $STATUS
 fi
 
-mv accepted.nt $cwd/data/dbpedia/link_file.nt
+mv accepted.nt $CURRENT_WORKING_DIRECTORY/data/dbpedia/link_file.nt
 
 # Get DBpedia enrichment
-cd $cwd/data/dbpedia
+cd $CURRENT_WORKING_DIRECTORY/data/dbpedia
 ./postprocess_dbpedia.sh 
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo Enriching with DBpedia ok.
 else
   echo Error during enrichment with DBpedia. Exiting. 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 
@@ -65,23 +67,23 @@ fi
 
 
 # Link with Viaf normal
-cd $cwd/linking
+cd $CURRENT_WORKING_DIRECTORY/linking
 ./generate_configs4viaf.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo "Generating configuration files for interlinking with VIAF (FN-LN-BD) ok."
 else
   echo "Error during generation of configuration files for interlinking with VIAF (FN-LN-DB). Exiting." 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 ./do_parallel_linking.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo "Parallel interlinkin with VIAF (FN-LN-BD) ok."
 else
   echo "Error during parallel interlinking with VIAF (FN-LN-BD). Exiting." 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 mv accepted.nt accepted_normal.nt
@@ -89,21 +91,21 @@ mv accepted.nt accepted_normal.nt
 
 # Link with Viaf gnd ids
 ./generate_configs4viaf_gndids.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo "Parallel interlinkin with VIAF (GND-ID) ok."
 else
   echo "Error during parallel interlinking with VIAF (GND-ID). Exiting." 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 ./do_parallel_linking.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo "Parallel interlinkin with VIAF (GND-ID) ok."
 else
   echo "Error during parallel interlinking with VIAF (GND-ID). Exiting." 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 mv accepted.nt accepted_gnd.nt
@@ -113,31 +115,31 @@ cat accepted_normal.nt accepted_gnd.nt > accepted.nt
 reshaperdf sort accepted.nt accepted_sorted.nt
 reshaperdf removeduplicates accepted_sorted.nt accepted_wodup.nt
 rm accepted_normal.nt accepted_gnd.nt accepted_sorted.nt
-mv accepted_wodup.nt $cwd/data/viaf/link_file.nt
+mv accepted_wodup.nt $CURRENT_WORKING_DIRECTORY/data/viaf/link_file.nt
 
 
 # Get Viaf enrichment
-cd $cwd/data/viaf
+cd $CURRENT_WORKING_DIRECTORY/data/viaf
 ./postprocess_viaf.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo "Enriching with VIAF ok."
 else
   echo "Error during enrichmetn with VIAF. Exiting." 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 
 
 # Write final output
-cd $cwd/data
+cd $CURRENT_WORKING_DIRECTORY/data
 ./collect_data.sh
-status=$?
-if [ $status -eq 0 ]; then
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
   echo "Merging original data, links and enrichment data ok."
 else
   echo "Error during merging original data, links and enrichment data. Exiting." 1>&2
-  exit $status
+  exit $STATUS
 fi
 
 
@@ -147,5 +149,3 @@ date >> times.log
 
 echo Done
 exit 0
-
-

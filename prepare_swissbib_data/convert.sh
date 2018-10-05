@@ -2,7 +2,7 @@
 #10.12.15
 #bensmafx
 
-#Script to process swissbib data for linking
+#Script to process prepare_swissbib_data data for linking
 
 
 

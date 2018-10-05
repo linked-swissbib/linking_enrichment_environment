@@ -14,11 +14,11 @@ mkdir $root_dir/linking/configs
 java -jar $root_dir/genconfig-tool/genconfig-1.0-SNAPSHOT.jar limes $root_dir/data/swissbib/swissbib_blocks $root_dir/data/dbpedia/dbpedia_blocks $root_dir/linking/templates/swissbib-dbpedia_birthDate.xml.template $root_dir/linking/configs
 
 # firstname - lastname
-#java -jar $root_dir/genconfig-tool/genconfig-1.0-SNAPSHOT.jar limes $root_dir/data/swissbib/swissbib_blocks $root_dir/data/dbpedia/dbpedia_blocks $root_dir/linking/templates/swissbib-dbpedia.xml.template $root_dir/linking/configs
+#java -jar $root_dir/genconfig-tool/genconfig-1.0-SNAPSHOT.jar limes $root_dir/data/prepare_swissbib_data/swissbib_blocks $root_dir/data/dbpedia/dbpedia_blocks $root_dir/linking/templates/prepare_swissbib_data-dbpedia.xml.template $root_dir/linking/configs
 
 
 # firstname - lastname - birthdate - deathdate
-#java -jar $root_dir/genconfig-tool/genconfig-1.0-SNAPSHOT.jar limes $root_dir/data/swissbib/swissbib_blocks $root_dir/data/dbpedia/dbpedia_blocks $root_dir/linking/templates/swissbib-dbpedia_birthDate_deathDate.xml.template $root_dir/linking/configs
+#java -jar $root_dir/genconfig-tool/genconfig-1.0-SNAPSHOT.jar limes $root_dir/data/prepare_swissbib_data/swissbib_blocks $root_dir/data/dbpedia/dbpedia_blocks $root_dir/linking/templates/prepare_swissbib_data-dbpedia_birthDate_deathDate.xml.template $root_dir/linking/configs
 
 
 
