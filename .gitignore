@@ -12,3 +12,6 @@ data/viaf/raw/*.nt.gz
 linking/cache
 limes-tool
 genconfig-tool
+
+apps/*
+
