@@ -31,7 +31,7 @@ reshaperdf ntriplify "$LINKED_SWISSBIB_SOURCE_DATA_FOLDER" "$LINKED_TMP_DATA_FOL
     "$SWISSBIB_CONTEXT_PREFIX/person/context.jsonld" "$SWISSBIB_CONTEXT_DIR/person/context.jsonld" \
     "$SWISSBIB_CONTEXT_PREFIX/resource/context.jsonld" "$SWISSBIB_CONTEXT_DIR/resource/context.jsonld" \
     "$SWISSBIB_CONTEXT_PREFIX/work/context.jsonld" "$SWISSBIB_CONTEXT_DIR/work/context.jsonld" \
-    &> "$LINKED_LOGGING/swissbib_import.log"
+    &> "$LINKED_LOGGING/sb_import.log"
 
 RETURN_STATUS=$?
 
@@ -43,10 +43,11 @@ else
 fi
 
 # What does this do?
+# Currently nothing as the swissbib.nt only contains things we want to keep. The smaller file is not smaller at all.
 echo "Filtering unwanted statements"
 
 reshaperdf filter whitelist "$LINKED_TMP_DATA_FOLDER/swissbib.nt" "$CONFIG_DIR/filter_for_compression.txt" \
-                    "$LINKED_TMP_DATA_FOLDER/swissbib_smaller.nt" 2>"$LINKED_LOGGING/err.log" &> /dev/null
+                    "$LINKED_TMP_DATA_FOLDER/swissbib_smaller.nt" 2>"$LINKED_LOGGING/sb_filter_unwanted.log" &> /dev/null
 
 RETURN_STATUS=$?
 
@@ -59,7 +60,7 @@ fi
 
 
 echo "Sort swissbib data triples."
-reshaperdf sort "$LINKED_TMP_DATA_FOLDER/swissbib_smaller.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_sorted.nt" &> "$LINKED_LOGGING/sort.log"
+reshaperdf sort "$LINKED_TMP_DATA_FOLDER/swissbib_smaller.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_sorted.nt" &> "$LINKED_LOGGING/sb_sort.log"
 
 RETURN_STATUS=$?
 if [ "$RETURN_STATUS" -eq 0 ]; then
@@ -69,8 +70,10 @@ else
   exit "$RETURN_STATUS"
 fi
 
+
+# Warum hat es soviele duplicates im Swissbib Datenset?
 echo "Remove duplicate statements"
-reshaperdf removeduplicates "$LINKED_TMP_DATA_FOLDER/swissbib_sorted.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_sorted_wo_dup.nt" &> "$LINKED_LOGGING/remove_duplicates.log"
+reshaperdf removeduplicates "$LINKED_TMP_DATA_FOLDER/swissbib_sorted.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_sorted_wo_dup.nt" &> "$LINKED_LOGGING/sb_remove_duplicates.log"
 
 RETURN_STATUS=$?
 
@@ -85,7 +88,7 @@ fi
 
 echo "Extract persons"
 reshaperdf extractresources "$LINKED_TMP_DATA_FOLDER/swissbib_sorted_wo_dup.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_persons_all.nt" \
-            http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://xmlns.com/foaf/0.1/Person 0 -1 &> "$LINKED_LOGGING/extract_persons.log"
+            http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://xmlns.com/foaf/0.1/Person 0 -1 &> "$LINKED_LOGGING/sb_extract_persons.log"
 
 RETURN_STATUS=$?
 
@@ -99,7 +102,7 @@ fi
 
 echo "Extract Organizations"
 reshaperdf extractresources "$LINKED_TMP_DATA_FOLDER/swissbib_sorted_wo_dup.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_organizations_all.nt" \
-            http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://xmlns.com/foaf/0.1/Organization 0 -1 &> "$LINKED_LOGGING/extract_organizations.log"
+            http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://xmlns.com/foaf/0.1/Organization 0 -1 &> "$LINKED_LOGGING/sb_extract_organizations.log"
 
 RETURN_STATUS=$?
 
@@ -115,7 +118,7 @@ fi
 echo "Filter persons for linking"
 reshaperdf filter whitelist "$LINKED_TMP_DATA_FOLDER/swissbib_persons_all.nt" "$CONFIG_DIR/filter_for_linking.txt" \
             "$LINKED_TMP_DATA_FOLDER/swissbib_persons_for_linking.nt" \
-            &> "$LINKED_LOGGING/filter_persons_for_linking.log"
+            &> "$LINKED_LOGGING/sb_filter_persons_for_linking.log"
 
 RETURN_STATUS=$?
 
@@ -130,7 +133,7 @@ fi
 
 echo "Block persons by last name"
 mkdir -p "$LINKED_TMP_DATA_FOLDER/swissbib_blocks"
-reshaperdf block "$LINKED_TMP_DATA_FOLDER/swissbib_persons_for_linking.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_blocks" http://xmlns.com/foaf/0.1/lastName 0 1 &> "$LINKED_LOGGING/block_last_name_persons.log"
+reshaperdf block "$LINKED_TMP_DATA_FOLDER/swissbib_persons_for_linking.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_blocks" http://xmlns.com/foaf/0.1/lastName 0 1 &> "$LINKED_LOGGING/sb_block_last_name_persons.log"
 
 RETURN_STATUS=$?
 
@@ -143,7 +146,7 @@ fi
 
 echo "Block persons by gnd identifier"
 mkdir -p "$LINKED_TMP_DATA_FOLDER/swissbib_gnd_blocks"
-reshaperdf block "$LINKED_TMP_DATA_FOLDER/swissbib_persons_for_linking.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_gnd_blocks" http://www.w3.org/2002/07/owl#sameAs 21 3 &> "$LINKED_LOGGING/block_gnd_persons.log"
+reshaperdf block "$LINKED_TMP_DATA_FOLDER/swissbib_persons_for_linking.nt" "$LINKED_TMP_DATA_FOLDER/swissbib_gnd_blocks" http://www.w3.org/2002/07/owl#sameAs 21 3 &> "$LINKED_LOGGING/sb_block_gnd_persons.log"
 
 RETURN_STATUS=$?
 
