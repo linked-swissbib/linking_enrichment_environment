@@ -11,7 +11,7 @@
 #get works
 #reshaperdf pick2 viaf.nt roundtriptest/viaf_docs.nt stmt ? list_creation_predicates.txt ?
 
-#get authros with works
+#get authors with works
 reshaperdf pick2 roundtriptest/viaf_docs.nt roundtriptest/ref_autors.txt o ? ? roundtriptest/viaf_persons.txt
 
 echo done

@@ -6,16 +6,21 @@
 
 CURRENT_WORKING_DIRECTORY=$(pwd)
 
+source ./paths/load_path_variables.sh
 
-rm "$LINKED_LOGGING/*.log"
-rm "$LINKED_TMP_DATA_FOLDER/*.nt"
+# remove all temporary files created from last run.
+rm -R "$LINKED_TMP_DATA_FOLDER"
+mkdir "$LINKED_TMP_DATA_FOLDER"
 
-# Log start time
-echo -n "Start: " >> times.log
-date >> times.log
+# The start time of the process.
+echo -n "Start process: " >> "$LINKED_LOGGING/process.log"
+date >> "$LINKED_LOGGING/process.log"
 
-# Preprocess prepare_swissbib_data
-cd "$CURRENT_WORKING_DIRECTORY/prepare_swissbib_data"
+
+# Pre-process_swissbib_data
+cd "$CURRENT_WORKING_DIRECTORY/swissbib"
+
+# RUN
 ./preprocess_swissbib.sh
 STATUS=$?
 if [ "$STATUS" -eq 0 ]; then
@@ -25,127 +30,143 @@ else
   exit "$STATUS"
 fi
 
-
-
-
-
 # Link with DBpedia
-cd $CURRENT_WORKING_DIRECTORY/linking
+cd "$CURRENT_WORKING_DIRECTORY/linking"
+
+# RUN
 ./generate_configs4dbpedia.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
-  echo Generating configuration files for interlinking whith DBpedia ok.
+
+if [ "$STATUS" -eq 0 ]; then
+  echo "Generating configuration files for interlinking whith DBpedia ok."
 else
-  echo Error during generation of configuration file for interlinking with DBpedia. Exiting. 1>&2
-  exit $STATUS
+  echo "Error during generation of configuration file for interlinking with DBpedia. Exiting." 1>&2
+  exit "$STATUS"
 fi
 
 ./do_parallel_linking.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
-  echo Parallel interlinking with DBpedia ok.
+
+if [ "$STATUS" -eq 0 ]; then
+  echo "Parallel interlinking with DBpedia ok."
 else
-  echo Error during parallel interlinking with DBpedia. Exiting. 1>&2
-  exit $STATUS
+  echo "Error during parallel interlinking with DBpedia. Exiting." 1>&2
+  exit "$STATUS"
 fi
 
-mv accepted.nt $CURRENT_WORKING_DIRECTORY/data/dbpedia/link_file.nt
+mv "$LINKED_DBPEDIA_DATA_FOLDER/accepted.nt" "$LINKED_TMP_DATA_FOLDER/dbpedia_link_file.nt"
 
 # Get DBpedia enrichment
-cd $CURRENT_WORKING_DIRECTORY/data/dbpedia
-./postprocess_dbpedia.sh 
+cd "$CURRENT_WORKING_DIRECTORY/dbpedia"
+
+./postprocess_dbpedia.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
-  echo Enriching with DBpedia ok.
+
+if [ "$STATUS" -eq 0 ]; then
+  echo "Enriching with DBpedia ok."
 else
-  echo Error during enrichment with DBpedia. Exiting. 1>&2
-  exit $STATUS
+  echo "Error during enrichment with DBpedia. Exiting." 1>&2
+  exit "$STATUS"
 fi
-
-
-
 
 
 # Link with Viaf normal
-cd $CURRENT_WORKING_DIRECTORY/linking
+cd "$CURRENT_WORKING_DIRECTORY/linking"
+
 ./generate_configs4viaf.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
+
+if [ "$STATUS" -eq 0 ]; then
   echo "Generating configuration files for interlinking with VIAF (FN-LN-BD) ok."
 else
   echo "Error during generation of configuration files for interlinking with VIAF (FN-LN-DB). Exiting." 1>&2
-  exit $STATUS
+  exit "$STATUS"
 fi
 
 ./do_parallel_linking.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
-  echo "Parallel interlinkin with VIAF (FN-LN-BD) ok."
+
+if [ "$STATUS" -eq 0 ]; then
+  echo "Parallel inter-linking with VIAF (FN-LN-BD) ok."
 else
-  echo "Error during parallel interlinking with VIAF (FN-LN-BD). Exiting." 1>&2
-  exit $STATUS
+  echo "Error during parallel inter-linking with VIAF (FN-LN-BD). Exiting." 1>&2
+  exit "$STATUS"
 fi
 
-mv accepted.nt accepted_normal.nt
-
+mv "$LINKED_TMP_DATA_FOLDER/accepted.nt" "$LINKED_TMP_DATA_FOLDER/accepted_normal.nt"
 
 # Link with Viaf gnd ids
 ./generate_configs4viaf_gndids.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
+
+if [ "$STATUS" -eq 0 ]; then
   echo "Parallel interlinkin with VIAF (GND-ID) ok."
 else
   echo "Error during parallel interlinking with VIAF (GND-ID). Exiting." 1>&2
-  exit $STATUS
+  exit "$STATUS"
 fi
 
 ./do_parallel_linking.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
+
+if [ "$STATUS" -eq 0 ]; then
   echo "Parallel interlinkin with VIAF (GND-ID) ok."
 else
   echo "Error during parallel interlinking with VIAF (GND-ID). Exiting." 1>&2
-  exit $STATUS
+  exit "$STATUS"
 fi
 
-mv accepted.nt accepted_gnd.nt
+mv "$LINKED_TMP_DATA_FOLDER/accepted.nt" "$LINKED_TMP_DATA_FOLDER/accepted_gnd.nt"
 
 # Merge link files
-cat accepted_normal.nt accepted_gnd.nt > accepted.nt
-reshaperdf sort accepted.nt accepted_sorted.nt
-reshaperdf removeduplicates accepted_sorted.nt accepted_wodup.nt
-rm accepted_normal.nt accepted_gnd.nt accepted_sorted.nt
-mv accepted_wodup.nt $CURRENT_WORKING_DIRECTORY/data/viaf/link_file.nt
+cat "$LINKED_TMP_DATA_FOLDER/accepted_normal.nt" "$LINKED_TMP_DATA_FOLDER/accepted_gnd.nt" > "$LINKED_TMP_DATA_FOLDER/accepted.nt"
+reshaperdf sort "$LINKED_TMP_DATA_FOLDER/accepted.nt" "$LINKED_TMP_DATA_FOLDER/accepted_sorted.nt"
+reshaperdf removeduplicates "$LINKED_TMP_DATA_FOLDER/accepted_sorted.nt" "$LINKED_TMP_DATA_FOLDER/accepted_wo_dup.nt"
+rm "$LINKED_TMP_DATA_FOLDER/accepted_normal.nt" "$LINKED_TMP_DATA_FOLDER/accepted_gnd.nt" "$LINKED_TMP_DATA_FOLDER/accepted_sorted.nt"
+mv "$LINKED_TMP_DATA_FOLDER/accepted_wo_dup.nt" "$LINKED_TMP_DATA_FOLDER/viaf_link_file.nt"
 
 
 # Get Viaf enrichment
-cd $CURRENT_WORKING_DIRECTORY/data/viaf
+cd "$CURRENT_WORKING_DIRECTORY/viaf"
+
+# RUN
 ./postprocess_viaf.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
+
+if [ "$STATUS" -eq 0 ]; then
   echo "Enriching with VIAF ok."
 else
   echo "Error during enrichmetn with VIAF. Exiting." 1>&2
-  exit $STATUS
+  exit "$STATUS"
 fi
 
 
 
 # Write final output
-cd $CURRENT_WORKING_DIRECTORY/data
+cd "$CURRENT_WORKING_DIRECTORY/output"
+
 ./collect_data.sh
+
 STATUS=$?
-if [ $STATUS -eq 0 ]; then
+
+if [ "$STATUS" -eq 0 ]; then
   echo "Merging original data, links and enrichment data ok."
 else
   echo "Error during merging original data, links and enrichment data. Exiting." 1>&2
-  exit $STATUS
+  exit "$STATUS"
 fi
 
-
 # Log end time
-echo -n "End: " >> times.log
-date >> times.log
+echo -n "End process: " >> "$LINKED_LOGGING/process.log"
+date >> "$LINKED_LOGGING/process.log"
 
 echo Done
 exit 0
