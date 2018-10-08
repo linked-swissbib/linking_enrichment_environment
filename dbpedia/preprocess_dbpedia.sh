@@ -7,7 +7,7 @@
 
 source ../paths/load_path_variables.sh
 
-CONFIG_DIR='configs'
+CONFIG_DIR='config'
 
 STATUS=0
 

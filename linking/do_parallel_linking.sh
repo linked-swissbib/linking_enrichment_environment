@@ -14,9 +14,8 @@ CONFIG_DIR=configs
 ROOT_DIRECTORY=..
 LIMES="$ROOT_DIRECTORY/apps/LIMES/limes-core-1.5.0.jar"
 
-#collect all config files
-#configlist=$(find /home/bensmafx/Linking/limes/LIMES/RC4/blocking/configs -type f )
 CONFIG_FILE_LIST=$(find "$CONFIG_DIR" -type f )
+echo "LIMES Configs: $CONFIG_FILE_LIST"
 
 #counter
 COUNTER=0

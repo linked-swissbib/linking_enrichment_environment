@@ -17,10 +17,10 @@ echo -n "Start pre-process VIAF data: " >> "$LINKED_LOGGING/process.log"
 date >> "$LINKED_LOGGING/process.log"
 
 STATUS=0
-CONFIG_DIR='configs'
+CONFIG_DIR='config'
 
 # Import
-echo Viaf data is present in one large N-Triples file, so no import necessary.
+echo "Viaf data is present in one large N-Triples file, so no import necessary."
 
 
 # TODO: Which ones are unwanted and why?
