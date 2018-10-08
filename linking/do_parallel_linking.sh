@@ -27,7 +27,7 @@ rm -rf cache
 #do block linking
 for CONFIG in "$CONFIG_FILE_LIST"
 do
-    java -Xmx10g -jar "$LIMES" "$CONFIG" &
+    java -Xmx10g -jar "$LIMES" "$CONFIG" -f "XML" -o "$LINKED_LOGGING/limes.log" &
     ((COUNTER=$COUNTER+1))
     ((tmp = $COUNTER % $NUMBER_OF_PROCESSES))
     if [ "$tmp" = "0" ]; then
