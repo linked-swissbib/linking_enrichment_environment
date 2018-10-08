@@ -12,8 +12,9 @@ echo -n "Start download viaf data: " >> "$LINKED_LOGGING/viaf.log"
 date >> "$LINKED_LOGGING/viaf.log"
 
 
+echo "Download VIAF data."
 # Download data
-wget -nv -P "$LINKED_VIAF_DATA_FOLDER" http://viaf.org/viaf/data/viaf-20180903-clusters-rdf.nt.gz
+wget -P "$LINKED_VIAF_DATA_FOLDER" http://viaf.org/viaf/data/viaf-20180903-clusters-rdf.nt.gz
 
 # Old Link http://viaf.org/viaf/data/viaf-20170101-clusters-rdf.nt.gz
 
