@@ -25,8 +25,8 @@ echo "Viaf data is present in one large N-Triples file, so no import necessary."
 
 # TODO: Which ones are unwanted and why?
 echo "Filtering unwanted statements."
-reshaperdf filter whitelist "$LINKED_VIAF_DATA_FOLDER/viaf-20160906-clusters-rdf.nt" "$CONFIG_DIR/filter_for_compression.txt" \
-            "$LINKED_TMP_DATA_FOLDER/viaf_removed_unwanted.nt" &> /dev/null
+reshaperdf filter whitelist "$LINKED_VIAF_DATA_FOLDER/viaf-20180903-clusters-rdf.nt" "$CONFIG_DIR/filter_for_compression.txt" \
+            "$LINKED_TMP_DATA_FOLDER/viaf_removed_unwanted.nt" &> /dev/null # do not store this output as it is several 100 GB of data.
 
 STATUS=$?
 if [ "$STATUS" -eq 0 ]; then

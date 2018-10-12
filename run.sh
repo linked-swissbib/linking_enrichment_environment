@@ -30,7 +30,6 @@ else
   exit "$STATUS"
 fi
 
-# Link with DBpedia
 cd "$CURRENT_WORKING_DIRECTORY/linking"
 
 # RUN
@@ -56,7 +55,8 @@ else
   exit "$STATUS"
 fi
 
-mv "$LINKED_DBPEDIA_DATA_FOLDER/accepted.nt" "$LINKED_TMP_DATA_FOLDER/dbpedia_link_file.nt"
+mv "$LINKED_TMP_DATA_FOLDER/dbpedia_accepted.nt" "$LINKED_TMP_DATA_FOLDER/dbpedia_link_file.nt"
+
 
 # Get DBpedia enrichment
 cd "$CURRENT_WORKING_DIRECTORY/dbpedia"

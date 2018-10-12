@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE LIMES SYSTEM "limes.dtd">
+<LIMES>
+   <PREFIX>
+      <NAMESPACE>http://www.w3.org/2002/07/owl#</NAMESPACE>
+      <LABEL>owl</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://www.w3.org/1999/02/22-rdf-syntax-ns#</NAMESPACE>
+      <LABEL>rdf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://xmlns.com/foaf/0.1/</NAMESPACE>
+      <LABEL>foaf</LABEL>
+   </PREFIX>
+   <PREFIX>
+      <NAMESPACE>http://dbpedia.org/ontology/</NAMESPACE>
+      <LABEL>dbp</LABEL>
+   </PREFIX>
+   <SOURCE>
+      <ID>SOURCEID</ID>
+      <ENDPOINT>SOURCEFILE</ENDPOINT>
+      <VAR>?a</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?a a foaf:Person</RESTRICTION>
+      <PROPERTY>foaf:firstName AS nolang->lowercase RENAME first</PROPERTY>
+      <PROPERTY>foaf:lastName AS nolang->lowercase RENAME last</PROPERTY>
+      <PROPERTY>dbp:birthYear AS replace(^^http://www.w3.org/2001/XMLSchema#date,T09:00:00+00:00)->replace(^^http://www.w3.org/2001/XMLSchema#gYear,-01-01T09:00:00+00:00)->regexreplace(--\d+-\d+\^\^http://www.w3.org/2001/XMLSchema#gMonthDay,0002-01-01T09:00:00+00:00) RENAME birth</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </SOURCE>
+   <TARGET>
+      <ID>TARGETID</ID>
+      <ENDPOINT>TARGETFILE</ENDPOINT>
+      <VAR>?b</VAR>
+      <PAGESIZE>-1</PAGESIZE>
+      <RESTRICTION>?b a foaf:Person</RESTRICTION>
+      <PROPERTY>foaf:givenName AS nolang->lowercase RENAME first</PROPERTY>
+      <PROPERTY>foaf:familyName AS nolang->lowercase RENAME last</PROPERTY>
+      <PROPERTY>dbp:birthDate AS replace(^^http://www.w3.org/2001/XMLSchema#date,T09:00:00+00:00)->replace(^^http://www.w3.org/2001/XMLSchema#gYear,-01-01T09:00:00+00:00)->regexreplace(--\d+-\d+\^\^http://www.w3.org/2001/XMLSchema#gMonthDay,0001-01-01T09:00:00+00:00) RENAME birth</PROPERTY>
+      <PROPERTY>dbp:birthYear AS replace(^^http://www.w3.org/2001/XMLSchema#date,T09:00:00+00:00)->replace(^^http://www.w3.org/2001/XMLSchema#gYear,-01-01T09:00:00+00:00)->regexreplace(--\d+-\d+\^\^http://www.w3.org/2001/XMLSchema#gMonthDay,0001-01-01T09:00:00+00:00) RENAME birth</PROPERTY>
+      <TYPE>N-TRIPLE</TYPE>
+   </TARGET>
+   <METRIC>AND(levenshtein(a.first,b.first)|0.5,levenshtein(a.last,b.last)|0.5)</METRIC>
+   <ACCEPTANCE>
+      <THRESHOLD>0.9</THRESHOLD>
+      <FILE>ACCEPTFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </ACCEPTANCE>
+   <REVIEW>
+      <THRESHOLD>0.8</THRESHOLD>
+      <FILE>REVIEWFILE</FILE>
+      <RELATION>owl:sameAs</RELATION>
+   </REVIEW>
+   <EXECUTION>
+    <REWRITER>default</REWRITER>
+    <PLANNER>default</PLANNER>
+    <ENGINE>default</ENGINE>
+   </EXECUTION>
+   <OUTPUT>TAB</OUTPUT>
+</LIMES>

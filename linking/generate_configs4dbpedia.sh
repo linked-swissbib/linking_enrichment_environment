@@ -18,7 +18,7 @@ mkdir "$ROOT_DIRECTORY/linking/configs"
 
 # firstname - lastname - birthdate
 java -jar "$GENCONFIG_JAR" limes "$LINKED_TMP_DATA_FOLDER/swissbib_blocks" "$LINKED_TMP_DATA_FOLDER/dbpedia_blocks" \
-            "$ROOT_DIRECTORY/linking/templates/swissbib-dbpedia_birthDate.xml.template" "$ROOT_DIRECTORY/linking/configs"
+            "$ROOT_DIRECTORY/linking/templates/swissbib-dbpedia_birthDate.xml" "$ROOT_DIRECTORY/linking/configs"
 
 # firstname - lastname
 #java -jar $root_dir/genconfig-tool/genconfig-1.0-SNAPSHOT.jar limes $root_dir/data/swissbib/swissbib_blocks $root_dir/data/dbpedia/dbpedia_blocks $root_dir/linking/templates/swissbib-dbpedia.xml.template $root_dir/linking/configs

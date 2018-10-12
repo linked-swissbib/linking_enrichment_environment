@@ -15,8 +15,8 @@ rm -rf "$LINKED_TMP_DATA_FOLDER/dbpedia_blocks" "$LINKED_TMP_DATA_FOLDER/dbpedia
 
 
 # Log start time
-echo -n "Start pre-processing of DBpedia data: " >> "$LINKED_LOGGING/process"
-date >> "$LINKED_LOGGING/process"
+echo -n "Start pre-processing of DBpedia data: " >> "$LINKED_LOGGING/process.log"
+date >> "$LINKED_LOGGING/process.log"
 
 echo "Start preprocessing of DBpedia"
 
@@ -137,7 +137,7 @@ echo "Block persons"
 mkdir "$LINKED_TMP_DATA_FOLDER/dbpedia_blocks"
 
 reshaperdf block "$LINKED_TMP_DATA_FOLDER/dbpedia_persons_for_linking.nt" "$LINKED_TMP_DATA_FOLDER/dbpedia_blocks" \
-                  http://xmlns.com/foaf/0.1/familyName 0 1 &> "$LINKED_LOGGING/viaf_block_persons.log"
+                  http://xmlns.com/foaf/0.1/familyName 0 1 &> "$LINKED_LOGGING/dbpedia_block_persons.log"
 
 STATUS=$?
 
@@ -149,8 +149,8 @@ else
 fi
 
 # Log end time
-echo -n "Finished dbpedia pre-processing: " >> "$LINKED_LOGGING/process"
-date >> "$LINKED_LOGGING/process"
+echo -n "Finished dbpedia pre-processing: " >> "$LINKED_LOGGING/process.log"
+date >> "$LINKED_LOGGING/process.log"
 
 
 echo "Finished dbpedia pre-processing"

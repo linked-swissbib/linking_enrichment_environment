@@ -1,6 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE LIMES SYSTEM "limes.dtd">
 <LIMES>
+   <PREFIX>
+      <NAMESPACE>http://www.w3.org/2002/07/owl#</NAMESPACE>
+      <LABEL>owl</LABEL>
+   </PREFIX>
    <PREFIX>
       <NAMESPACE>http://www.w3.org/1999/02/22-rdf-syntax-ns#</NAMESPACE>
       <LABEL>rdf</LABEL>
@@ -10,47 +14,39 @@
       <LABEL>foaf</LABEL>
    </PREFIX>
    <PREFIX>
-      <NAMESPACE>http://schema.org/</NAMESPACE>
-      <LABEL>sch</LABEL>
-   </PREFIX>
-   <PREFIX>
       <NAMESPACE>http://dbpedia.org/ontology/</NAMESPACE>
       <LABEL>dbp</LABEL>
    </PREFIX>
    <PREFIX>
-      <NAMESPACE>http://www.w3.org/2002/07/owl#</NAMESPACE>
-      <LABEL>owl</LABEL>
+      <NAMESPACE>http://schema.org/</NAMESPACE>
+      <LABEL>sch</LABEL>
    </PREFIX>
    <SOURCE>
       <ID>SOURCEID</ID>
       <ENDPOINT>SOURCEFILE</ENDPOINT>
-      <GRAPH>http://linked.swissbib.ch/swissbib</GRAPH>
       <VAR>?a</VAR>
       <PAGESIZE>-1</PAGESIZE>
-      <RESTRICTION>?a rdf:type foaf:Person</RESTRICTION>
-      <PROPERTY>owl:sameAs</PROPERTY>
+      <RESTRICTION>?a a foaf:Person</RESTRICTION>
+      <PROPERTY>sch:sameAs RENAME same</PROPERTY>
       <TYPE>N-TRIPLE</TYPE>
    </SOURCE>
    <TARGET>
       <ID>TARGETID</ID>
       <ENDPOINT>TARGETFILE</ENDPOINT>
-      <GRAPH>http://linked.swissbib.ch/viaf</GRAPH>
       <VAR>?b</VAR>
       <PAGESIZE>-1</PAGESIZE>
-      <RESTRICTION>?b rdf:type sch:Person</RESTRICTION>
-      <PROPERTY>sch:sameAs</PROPERTY>
+      <RESTRICTION>?b a sch:Person</RESTRICTION>
+      <PROPERTY>sch:sameAs RENAME same</PROPERTY>
       <TYPE>N-TRIPLE</TYPE>
    </TARGET>
-   <METRIC>
-        levenshtein(a.owl:sameAs, b.sch:sameAs)
-   </METRIC>
+   <METRIC>levenshtein(a.same,b.same)|0.5</METRIC>
    <ACCEPTANCE>
-      <THRESHOLD>0.8</THRESHOLD>
+      <THRESHOLD>0.9</THRESHOLD>
       <FILE>ACCEPTFILE</FILE>
       <RELATION>owl:sameAs</RELATION>
    </ACCEPTANCE>
    <REVIEW>
-      <THRESHOLD>0.7</THRESHOLD>
+      <THRESHOLD>0.8</THRESHOLD>
       <FILE>REVIEWFILE</FILE>
       <RELATION>owl:sameAs</RELATION>
    </REVIEW>
@@ -59,5 +55,5 @@
     <PLANNER>default</PLANNER>
     <ENGINE>default</ENGINE>
    </EXECUTION>
-   <OUTPUT>N3</OUTPUT>
+   <OUTPUT>TAB</OUTPUT>
 </LIMES>
