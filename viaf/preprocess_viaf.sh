@@ -11,7 +11,7 @@
 source ./../paths/load_path_variables.sh
 
 # Do not remove *.nt, external source is still needed
-rm -rf "$LINKED_TMP_DATA_FOLDER/viaf_blocks" "$LINKED_TMP_DATA_FOLDER/viaf_gnd_blocks"
+# rm -rf "$LINKED_TMP_DATA_FOLDER/viaf_blocks" "$LINKED_TMP_DATA_FOLDER/viaf_gnd_blocks"
 
 echo -n "Start pre-process VIAF data: " >> "$LINKED_LOGGING/process.log"
 date >> "$LINKED_LOGGING/process.log"
@@ -26,7 +26,7 @@ echo "Viaf data is present in one large N-Triples file, so no import necessary."
 # TODO: Which ones are unwanted and why?
 echo "Filtering unwanted statements."
 reshaperdf filter whitelist "$LINKED_VIAF_DATA_FOLDER/viaf-20180903-clusters-rdf.nt" "$CONFIG_DIR/filter_for_compression.txt" \
-            "$LINKED_TMP_DATA_FOLDER/viaf_removed_unwanted.nt" &> /dev/null # do not store this output as it is several 100 GB of data.
+             "$LINKED_TMP_DATA_FOLDER/viaf_removed_unwanted.nt" &> /dev/null # do not store this output as it is several 100 GB of data.
 
 STATUS=$?
 if [ "$STATUS" -eq 0 ]; then
@@ -49,7 +49,7 @@ else
 fi 
 
 echo "Remove duplicate statements"
-reshaperdf removeduplicates "$LINKED_VIAF_DATA_FOLDER/viaf_sorted.nt" "$LINKED_TMP_DATA_FOLDER/viaf_sorted_wo_dup.nt" &> "$LINKED_LOGGING/viaf_remove_duplicates.log"
+reshaperdf removeduplicates "$LINKED_TMP_DATA_FOLDER/viaf_sorted.nt" "$LINKED_TMP_DATA_FOLDER/viaf_sorted_wo_dup.nt" &> "$LINKED_LOGGING/viaf_remove_duplicates.log"
 
 STATUS=$?
 

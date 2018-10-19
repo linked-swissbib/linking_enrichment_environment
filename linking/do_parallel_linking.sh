@@ -12,9 +12,6 @@ echo -n "Start parallel linking: " >> "$LINKED_LOGGING/process.log"
 date >> "$LINKED_LOGGING/process.log"
 
 CONFIG_DIR=configs
-
-# remove cache & configs from last run.
-rm -rf "$CONFIG_DIR"
 rm -rf cache
 
 
@@ -44,21 +41,18 @@ echo "Waiting for processes"
 wait
 
 echo $(pwd)
-cat $CURRENT_WORKING_DIRECTORY/accept_* > "$LINKED_TMP_DATA_FOLDER/dbpedia_accept_all.nt"
-cat $CURRENT_WORKING_DIRECTORY/review_* > "$LINKED_TMP_DATA_FOLDER/dbpedia_review_all.nt"
+cat $LINKED_TMP_DATA_FOLDER/linking/accept_* > "$LINKED_TMP_DATA_FOLDER/accept_all.nt"
+cat $LINKED_TMP_DATA_FOLDER/linking/review_* > "$LINKED_TMP_DATA_FOLDER/review_all.nt"
 
-reshaperdf sort "$LINKED_TMP_DATA_FOLDER/dbpedia_accept_all.nt" "$LINKED_TMP_DATA_FOLDER/dbpedia_accept_all_sorted.nt"
+reshaperdf sort "$LINKED_TMP_DATA_FOLDER/accept_all.nt" "$LINKED_TMP_DATA_FOLDER/accept_all_sorted.nt"
 
-reshaperdf removeduplicates "$LINKED_TMP_DATA_FOLDER/dbpedia_accept_all_sorted.nt" "$LINKED_TMP_DATA_FOLDER/dbpedia_accepted.nt"
+reshaperdf removeduplicates "$LINKED_TMP_DATA_FOLDER/accept_all_sorted.nt" "$LINKED_TMP_DATA_FOLDER/accepted.nt"
 
-# rm "$LINKED_TMP_DATA_FOLDER/accept_all.nt" "$LINKED_TMP_DATA_FOLDER/accept_all_sorted.nt"
+rm "$LINKED_TMP_DATA_FOLDER/accept_all.nt" "$LINKED_TMP_DATA_FOLDER/accept_all_sorted.nt"
 
-  
 # Log end time
 echo -n "End parallel linking: " >> "$LINKED_LOGGING/process.log"
 date >> "$LINKED_LOGGING/process.log"
-
-
 
 echo "Finished linking data with limes."
 exit 0

@@ -10,15 +10,22 @@ echo "Generate limes configurations for viaf."
 source ././../paths/load_path_variables.sh
 
 ROOT_DIRECTORY=..
-GENCONFIG_JAR="$ROOT_DIRECTORY/apps/genconfig/genconfig-1.0-SNAPSHOT-all.jar"
+GENCONFIG_JAR="$ROOT_DIRECTORY/apps/genconfig/genconfig-1.1-all.jar"
+OUTPUT="$LINKED_TMP_DATA_FOLDER/linking"
 
+if [ ! -d $OUTPUT ] ; then
+    mkdir "$OUTPUT"
+else
+    rm "$OUTPUT/*"
+fi
 # ensure there is an empty configs directory for output files
 rm -rf "$ROOT_DIRECTORY/linking/configs"
 mkdir "$ROOT_DIRECTORY/linking/configs"
 
 # firstname - lastname - birthyear
-java -jar "$GENCONFIG_JAR" limes "$LINKED_TMP_DATA_FOLDER/swissbib_blocks" "$LINKED_TMP_DATA_FOLDER/viaf_blocks" \
-            "$ROOT_DIRECTORY/linking/templates/swissbib-viaf_birthYear.xml" "$ROOT_DIRECTORY/linking/configs"
+java -jar "$GENCONFIG_JAR" "$LINKED_TMP_DATA_FOLDER/swissbib_blocks" "$LINKED_TMP_DATA_FOLDER/viaf_blocks" \
+            "$ROOT_DIRECTORY/linking/templates/swissbib-viaf_birthYear.xml" "$ROOT_DIRECTORY/linking/configs" \
+            "$OUTPUT"
 
 # TODO: Update these things if they are ever used. these represent alternative linking strategies.
 # Check which ones are actually better.
